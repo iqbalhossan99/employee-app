@@ -10,6 +10,7 @@ import { EmployeeService } from 'src/app/services/employee.service';
 
 export class TableComponent implements OnInit {
   @Output() deleteData = new EventEmitter;
+  @Output() getData = new EventEmitter;
   @Input() employees: any;
   
 
@@ -25,11 +26,13 @@ export class TableComponent implements OnInit {
   }
 
   updateEmployee(employee: any) {
-    console.log("edit", employee)
+    console.log("edit", employee);
   }
 
   deleteEmployee(empId: any) {
-    this.deleteData.emit(empId)
+    this.deleteData.emit(empId);
+   this.getEmployeeDataFromLocalStorage();
+
   }
 
 }

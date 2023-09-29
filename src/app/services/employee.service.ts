@@ -41,7 +41,10 @@ export class EmployeeService implements OnInit{
       this.employees.splice(deleteItemIndex, 1);
     }
 
+    console.log("delete")
+
     localStorage.setItem('employees', JSON.stringify(this.employees));
+    this.getEmployeeDataFromLocalStorage();
   }
 
   

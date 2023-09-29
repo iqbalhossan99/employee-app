@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { TableComponent } from '../table/table.component';
 import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
