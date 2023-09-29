@@ -1,51 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit{
-  // employees = [
-  //   {
-  //     "id": 1,
-  //     "name": "Rahim Ahmed",
-  //     "email": "rahim.ahmed@example.com",
-  //     "salary": 50000
-  //   },
-  //   {
-  //     "id": 2,
-  //     "name": "Fatima Khan",
-  //     "email": "fatima.khan@example.com",
-  //     "salary": 55000
-  //   },
-  //   {
-  //     "id": 3,
-  //     "name": "Ayesha Rahman",
-  //     "email": "ayesha.rahman@example.com",
-  //     "salary": 48000
-  //   },
-  //   {
-  //     "id": 4,
-  //     "name": "Kamal Chowdhury",
-  //     "email": "kamal.chowdhury@example.com",
-  //     "salary": 60000
-  //   },
-  //   {
-  //     "id": 5,
-  //     "name": "Sadia Islam",
-  //     "email": "sadia.islam@example.com",
-  //     "salary": 52000
-  //   }
-  // ]
 
-   employees: any;
+export class TableComponent implements OnInit {
+
+  employees: any = [];
   constructor() { }
-  
-  ngOnInit(): void{
+
+  ngOnInit(): void {
     this.getEmployeeDataFromLocalStorage()
   }
-  
+
   getEmployeeDataFromLocalStorage() {
     const getEmployees: any = localStorage.getItem('employees')
     if (getEmployees != null) {
@@ -53,4 +23,19 @@ export class TableComponent implements OnInit{
     }
     console.log("get employees", this.employees)
   }
+
+  updateEmployee(employee: any) {
+    console.log("edit", employee)
+  }
+
+  deleteEmployee(empId: any) {
+    const deleteItemIndex = this.employees.findIndex((employee: { empId: any; }) => employee.empId === empId);
+
+    if (deleteItemIndex != -1) {
+      this.employees.splice(deleteItemIndex, 1);
+    }
+
+    localStorage.setItem('employees', JSON.stringify(this.employees));
+  }
+
 }
