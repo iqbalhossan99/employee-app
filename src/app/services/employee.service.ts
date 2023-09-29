@@ -10,7 +10,8 @@ export class EmployeeService implements OnInit{
   constructor() { }
 
   ngOnInit(): void {
-    
+    this.getEmployeeDataFromLocalStorage();
+
   }
 
   // Store Data to the local storage
@@ -21,11 +22,13 @@ export class EmployeeService implements OnInit{
 
   // Get Data from the local storage
   getEmployeeDataFromLocalStorage() {
+    console.log("service: ", this.employees)
     const getEmployees: any = localStorage.getItem('employees')
     if (getEmployees != null) {
       this.employees = JSON.parse(getEmployees)
     }
     console.log("service: ", this.employees)
+
     return this.employees;
   }
 

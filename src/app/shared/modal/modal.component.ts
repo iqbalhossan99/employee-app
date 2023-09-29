@@ -21,11 +21,13 @@ export class ModalComponent implements OnInit {
     salary: null
   }
 
-  constructor(private emService: EmployeeService) {
+  constructor(private empService: EmployeeService) {
 
   }
 
   ngOnInit(): void {
+    this.employeeArr = this.empService.getEmployeeDataFromLocalStorage();
+;
   }
 
   employeeForm = new FormGroup({
@@ -43,7 +45,7 @@ export class ModalComponent implements OnInit {
       salary: salary
     }
     this.employeeArr.push(this.employee)
-    this.emService.saveEmployeeDataIntoLocalStorage(this.employeeArr)
+    this.empService.saveEmployeeDataIntoLocalStorage(this.employeeArr)
     this.getData.emit();
     this.employeeForm.reset();
   }
