@@ -6,17 +6,22 @@ import { AppComponent } from './app.component';
 import { ButtonComponent } from './shared/button/button.component';
 import { TableComponent } from './shared/table/table.component';
 import { ModalComponent } from './shared/modal/modal.component';
+import { EmployeeComponent } from './core/employee/employee.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     ButtonComponent,
     TableComponent,
-    ModalComponent
+    ModalComponent,
+    EmployeeComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule, 
+    ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
