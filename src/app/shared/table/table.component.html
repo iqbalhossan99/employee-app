@@ -11,7 +11,11 @@
         </thead>
         <tbody *ngFor="let employee of employees">
             <tr>
+                <script>
+                    console.log( employee );
+                </script>
                 <th scope="row">{{employee.id}}</th>
+                <td>{{employee.name}}</td>
                 <td>{{employee.name}}</td>
                 <td>{{employee.email}}</td>
                 <td>{{employee.salary}}</td>

@@ -9,16 +9,16 @@
             <div class="modal-body">
                 <form [formGroup] = 'employeeForm'>
                     <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                        <label for="name" class="form-label">Name</label>
                         <input type="text" class="form-control" id="exampleFormControlInput1"
                             placeholder="Md Rahim" formControlName="name">
                     </div>
                     <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                        <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" formControlName="email">
                     </div>
                     <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                        <label for="salary" class="form-label">Salary</label>
                         <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="35000" formControlName="salary">
                     </div>
                 </form>
@@ -27,7 +27,7 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" (click)="saveEmployeeDataIntoLocalStorage()">Save Info</button>
+                <button type="button" class="btn btn-primary" (click)="saveEmployeeDataIntoLocalStorage()" data-bs-dismiss="modal">Save Info</button>
             </div>
         </div>
     </div>
