@@ -8,11 +8,10 @@ import { EmployeeService } from 'src/app/services/employee.service';
   styleUrls: ['./modal.component.css']
 })
 export class ModalComponent implements OnInit {
-
+  @Input() employees: any;
   @Output() getData = new EventEmitter;
 
 
-  employeeArr: any = []
   employee = {
     empId: null,
     name: '',
@@ -25,8 +24,7 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.employeeArr = this.empService.getEmployeeDataFromLocalStorage();
-;
+    this.employees = this.getData.emit();
   }
 
   employeeForm = new FormGroup({
@@ -38,13 +36,13 @@ export class ModalComponent implements OnInit {
   saveEmployeeDataIntoLocalStorage() {
     const { name, email, salary }: any = this.employeeForm.value;
     this.employee = {
-      empId: this.employeeArr.length + 1,
+      empId: this.employees.length + 1,
       name: name,
       email: email,
       salary: salary
     }
-    this.employeeArr.push(this.employee)
-    this.empService.saveEmployeeDataIntoLocalStorage(this.employeeArr)
+    this.employees.push(this.employee)
+    this.empService.saveEmployeeDataIntoLocalStorage(this.employees)
     this.getData.emit();
     this.employeeForm.reset();
   }

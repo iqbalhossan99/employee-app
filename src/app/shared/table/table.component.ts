@@ -21,7 +21,8 @@ export class TableComponent implements OnInit {
   }
 
   getEmployeeDataFromLocalStorage() {
-    this.employees = this.empService.getEmployeeDataFromLocalStorage();
+    // this.employees = this.empService.getEmployeeDataFromLocalStorage();
+    this.employees = this.getData.emit();
     console.log(this.employees);
   }
 
@@ -31,7 +32,8 @@ export class TableComponent implements OnInit {
 
   deleteEmployee(empId: any) {
     this.deleteData.emit(empId);
-   this.getEmployeeDataFromLocalStorage();
+    // this.getEmployeeDataFromLocalStorage();
+    this.employees = this.getData.emit();
 
   }
 
