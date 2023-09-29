@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { TableComponent } from '../table/table.component';
 import { EmployeeService } from 'src/app/services/employee.service';
@@ -9,6 +9,9 @@ import { EmployeeService } from 'src/app/services/employee.service';
   styleUrls: ['./modal.component.css']
 })
 export class ModalComponent implements OnInit {
+
+  @Output() getData = new EventEmitter;
+
 
   employeeArr: any = []
   employee = {
@@ -23,7 +26,6 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getEmployeeDataFromLocalStorage();
   }
 
   employeeForm = new FormGroup({
@@ -33,7 +35,6 @@ export class ModalComponent implements OnInit {
   })
 
   saveEmployeeDataIntoLocalStorage() {
-    this.emService.saveEmployeeDataIntoLocalStorage(this.employeeForm)
     const { name, email, salary }: any = this.employeeForm.value;
     this.employee = {
       empId: this.employeeArr.length + 1,
@@ -42,20 +43,10 @@ export class ModalComponent implements OnInit {
       salary: salary
     }
     this.employeeArr.push(this.employee)
-    localStorage.setItem('employees', JSON.stringify(this.employeeArr))
+    this.emService.saveEmployeeDataIntoLocalStorage(this.employeeArr)
+    this.getData.emit();
     this.employeeForm.reset();
-    console.log("from", this.employeeForm.value, "employee: ", this.employee, "array: ", this.employeeArr);
-    this.getEmployeeDataFromLocalStorage()
   }
-
-  getEmployeeDataFromLocalStorage() {
-    const getEmployees: any = localStorage.getItem('employees')
-    if (getEmployees != null) {
-      this.employeeArr = JSON.parse(getEmployees)
-    }
-    console.log("get employees", this.employeeArr)
-  }
-
 
 
 

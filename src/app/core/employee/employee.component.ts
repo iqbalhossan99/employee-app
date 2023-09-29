@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
   selector: 'app-employee',
@@ -7,7 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployeeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private empService: EmployeeService) { }
   
-  ngOnInit():void{}
+  employees: any = [];
+
+  ngOnInit(): void{
+    this.getData();
+    console.log("parent", this.employees)
+  }
+
+  getData() {
+    this.employees = this.empService.getEmployeeDataFromLocalStorage();
+  }
+
+  deleteData(empId: any): void {
+    this.empService.deleteEmployee(empId)
+  }
 }

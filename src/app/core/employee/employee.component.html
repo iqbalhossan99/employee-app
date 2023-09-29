@@ -6,12 +6,12 @@
 
     <!-- Table Section -->
     <section id="table-section" class="pt-3">
-        <app-table>
+        <app-table [employees] = "employees"  (deleteData) = "deleteData($event)">
         </app-table>
     </section>
 
     <!-- Modal -->
-    <app-modal></app-modal>
+    <app-modal (getData) = "getData()"></app-modal>
 
 
 </section>

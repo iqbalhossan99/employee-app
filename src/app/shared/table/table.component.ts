@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ModalComponent } from '../modal/modal.component';
+import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
   selector: 'app-table',
@@ -8,20 +9,19 @@ import { ModalComponent } from '../modal/modal.component';
 })
 
 export class TableComponent implements OnInit {
+  @Output() deleteData = new EventEmitter;
+  @Input() employees: any;
+  
 
-  employees: any = [];
-  constructor() { }
+  constructor(private empService: EmployeeService) { }
 
   ngOnInit(): void {
-    this.getEmployeeDataFromLocalStorage()
+
   }
 
   getEmployeeDataFromLocalStorage() {
-    const getEmployees: any = localStorage.getItem('employees')
-    if (getEmployees != null) {
-      this.employees = JSON.parse(getEmployees)
-    }
-    console.log("get employees", this.employees)
+    this.employees = this.empService.getEmployeeDataFromLocalStorage();
+    console.log(this.employees);
   }
 
   updateEmployee(employee: any) {
@@ -29,13 +29,7 @@ export class TableComponent implements OnInit {
   }
 
   deleteEmployee(empId: any) {
-    const deleteItemIndex = this.employees.findIndex((employee: { empId: any; }) => employee.empId === empId);
-
-    if (deleteItemIndex != -1) {
-      this.employees.splice(deleteItemIndex, 1);
-    }
-
-    localStorage.setItem('employees', JSON.stringify(this.employees));
+    this.deleteData.emit(empId)
   }
 
 }

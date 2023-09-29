@@ -1,45 +1,46 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService{
+export class EmployeeService implements OnInit{
 
-  employeeArr: any = []
-  employee = {
-    empId: null,
-    name: '',
-    email: '',
-    salary: null
-  }
-
+  employees: any = []
+  
   constructor() { }
 
-
-
-  saveEmployeeDataIntoLocalStorage(employeeForm: any) {
-    const { name, email, salary }: any = employeeForm;
-
-    console.log("service: ", employeeForm)
-    // const { name, email, salary }: any = this.employeeForm.value;
-    // this.employee = {
-    //   empId: this.employeeArr.length + 1,
-    //   name: name,
-    //   email: email,
-    //   salary: salary
-    // }
-    // this.employeeArr.push(this.employee)
-    // localStorage.setItem('employees', JSON.stringify(this.employeeArr))
-    // this.employeeForm.reset();
-    // console.log("from", this.employeeForm.value, "employee: ", this.employee, "array: ", this.employeeArr);
+  ngOnInit(): void {
+    
   }
 
+  // Store Data to the local storage
+  saveEmployeeDataIntoLocalStorage(employees:any) {
+    localStorage.setItem('employees', JSON.stringify(employees))
+    this.getEmployeeDataFromLocalStorage()
+  }
+
+  // Get Data from the local storage
   getEmployeeDataFromLocalStorage() {
     const getEmployees: any = localStorage.getItem('employees')
     if (getEmployees != null) {
-      this.employeeArr = JSON.parse(getEmployees)
+      this.employees = JSON.parse(getEmployees)
     }
-    console.log("get employees", this.employeeArr)
+    console.log("service: ", this.employees)
+    return this.employees;
   }
+
+  // Delete Employee
+  deleteEmployee(empId: any) {
+
+    const deleteItemIndex = this.employees.findIndex((employee: { empId: any; }) => employee.empId === empId);
+
+    if (deleteItemIndex != -1) {
+      this.employees.splice(deleteItemIndex, 1);
+    }
+
+    localStorage.setItem('employees', JSON.stringify(this.employees));
+  }
+
+  
 
 }
