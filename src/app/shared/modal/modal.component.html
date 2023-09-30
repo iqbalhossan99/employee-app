@@ -7,28 +7,32 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form [formGroup] = 'employeeForm'>
+                <form [formGroup]='employeeForm'>
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1"
-                            placeholder="Md Rahim" formControlName="name">
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Md Rahim"
+                            formControlName="name">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" formControlName="email">
+                        <input type="email" class="form-control" id="exampleFormControlInput1"
+                            placeholder="name@example.com" formControlName="email">
                     </div>
                     <div class="mb-3">
                         <label for="salary" class="form-label">Salary</label>
-                        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="35000" formControlName="salary">
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="35000"
+                            formControlName="salary">
                     </div>
                 </form>
             </div>
-
+            
             <!-- Modal Footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" (click)="saveEmployeeDataIntoLocalStorage()" data-bs-dismiss="modal">Save Info</button>
+                <button type="button" class="btn btn-primary" (click)="saveEmployeeDataIntoLocalStorage()"
+                    data-bs-dismiss="modal">Save Info</button>
             </div>
         </div>
     </div>
+
 </div>

@@ -3,10 +3,12 @@ import { Injectable, OnInit } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService implements OnInit{
+export class EmployeeService implements OnInit {
 
   employees: any = []
-  
+  empId: any;
+
+
   constructor() { }
 
   ngOnInit(): void {
@@ -15,7 +17,7 @@ export class EmployeeService implements OnInit{
   }
 
   // Store Data to the local storage
-  saveEmployeeDataIntoLocalStorage(employees:any) {
+  saveEmployeeDataIntoLocalStorage(employees: any) {
     localStorage.setItem('employees', JSON.stringify(employees))
     this.getEmployeeDataFromLocalStorage()
   }
@@ -34,7 +36,6 @@ export class EmployeeService implements OnInit{
 
   // Delete Employee
   deleteEmployee(empId: any) {
-
     const deleteItemIndex = this.employees.findIndex((employee: { empId: any; }) => employee.empId === empId);
 
     if (deleteItemIndex != -1) {
@@ -47,6 +48,8 @@ export class EmployeeService implements OnInit{
     this.getEmployeeDataFromLocalStorage();
   }
 
-  
+ 
+
+
 
 }
