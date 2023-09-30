@@ -5,7 +5,7 @@
                 <th scope="col">Employee ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
-                <th scope="col">Salary</th>
+                <th scope="col">Role</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -14,7 +14,7 @@
                 <td>{{employee.empId}}</td>
                 <td>{{employee.name}}</td>
                 <td>{{employee.email}}</td>
-                <td>{{employee.salary}}</td>
+                <td>{{employee.role}}</td>
                 <td><button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#updateModal" (click)="onEdit(employee)">Edit</button>
                         <button type="button"
                         class="btn btn-outline-primary" (click)="deleteEmployee(employee.empId)">
@@ -40,16 +40,34 @@
                         <label for="name" class="form-label">Name</label>
                         <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Md Rahim"
                             formControlName="name" [(ngModel)]="employee.name" >
+                            <div *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="alert alert-danger mt-2">
+                            
+                                <div *ngIf="name?.errors?.['required']">
+                                    Name is required.
+                                </div>
+                                <div *ngIf="name?.errors?.['minlength']">
+                                    Name must be at least 4 characters long.
+                                </div>
+                            </div>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="exampleFormControlInput1"
                             placeholder="name@example.com" formControlName="email" [(ngModel)] = "employee.email">
+                            <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="alert alert-danger mt-2">
+                            
+                                <div *ngIf="email?.errors?.['required']">
+                                    Name is required.
+                                </div>
+                                <div *ngIf="email?.errors?.['email']">
+                                    Enter a valid email address
+                                </div>
+                            </div>
                     </div>
                     <div class="mb-3">
-                        <label for="salary" class="form-label">Salary</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="35000"
-                            formControlName="salary" [(ngModel)]="employee.salary">
+                        <label for="role" class="form-label">Role</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Role"
+                            formControlName="role" [(ngModel)]="employee.role">
                     </div>
                 </form>
             </div>

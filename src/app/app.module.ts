@@ -8,6 +8,8 @@ import { TableComponent } from './shared/table/table.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { EmployeeComponent } from './core/employee/employee.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from './core/layout/header/header.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -15,13 +17,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ButtonComponent,
     TableComponent,
     ModalComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule, 
     ReactiveFormsModule,
     FormsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

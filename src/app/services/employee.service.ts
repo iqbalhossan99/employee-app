@@ -1,4 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -9,16 +10,19 @@ export class EmployeeService implements OnInit {
   empId: any;
 
 
-  constructor() { }
+  constructor(private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.getEmployeeDataFromLocalStorage();
-
   }
 
   // Store Data to the local storage
   saveEmployeeDataIntoLocalStorage(employees: any) {
-    localStorage.setItem('employees', JSON.stringify(employees))
+    if (employees != null) {
+      localStorage.setItem('employees', JSON.stringify(employees))
+      alert("Employeesuccessfully added!")
+    }
     this.getEmployeeDataFromLocalStorage()
   }
 
@@ -42,14 +46,15 @@ export class EmployeeService implements OnInit {
       this.employees.splice(deleteItemIndex, 1);
     }
 
-    console.log("delete")
-
     localStorage.setItem('employees', JSON.stringify(this.employees));
+    alert("Employee deleted!")
     this.getEmployeeDataFromLocalStorage();
   }
 
- 
 
+  showSuccess() {
+    this.toastr.success('Employee succesfully added');
+  }
 
 
 }

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ModalComponent } from '../modal/modal.component';
 import { EmployeeService } from 'src/app/services/employee.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-table',
@@ -19,20 +18,30 @@ export class TableComponent implements OnInit {
     empId: null,
     name: '',
     email: '',
-    salary: ''
+    role: ''
   }
 
-  constructor(private empService: EmployeeService) { }
+  constructor(
+    private empService: EmployeeService,
+  ) { }
 
   ngOnInit(): void {
 
   }
 
   employeeForm2 = new FormGroup({
-    name: new FormControl(this.employee?.name, { nonNullable: true }),
-    email: new FormControl(this.employee?.email),
-    salary: new FormControl(this.employee?.salary)
+    name: new FormControl(this.employee?.name, [
+      Validators.required,
+      Validators.minLength(4),
+    ]),
+    email: new FormControl(this.employee?.email, [
+      Validators.required,
+      Validators.email
+    ]),
+    role: new FormControl(this.employee?.role)
   })
+
+
 
   getEmployeeDataFromLocalStorage() {
     this.employees = this.getData.emit();
@@ -40,12 +49,12 @@ export class TableComponent implements OnInit {
   }
 
   updateEmployee() {
-    const { name, email, salary }: any = this.employeeForm2.value
+    const { name, email, role }: any = this.employeeForm2.value
     this.employee = {
       empId: this.empId,
       name: name,
       email: email,
-      salary:salary
+      role: role
     }
     const updateItemIndex = this.employees.findIndex((empl: { empId: any; }) => empl.empId === this.empId);
 
@@ -53,9 +62,12 @@ export class TableComponent implements OnInit {
     if (updateItemIndex != -1) {
       this.employees[updateItemIndex] = this.employee;
       console.log("update---", this.employees[updateItemIndex])
+      
     }
     localStorage.setItem('employees', JSON.stringify(this.employees));
     this.getData.emit();
+    alert("Updated")
+
   }
 
   deleteEmployee(empId: any) {
@@ -68,4 +80,11 @@ export class TableComponent implements OnInit {
     this.empId = employee.empId;
   }
 
+  get name() {
+    return this.employeeForm2.get('name')
+  }
+  get email() {
+    return this.employeeForm2.get('email')
+  }
+  
 }

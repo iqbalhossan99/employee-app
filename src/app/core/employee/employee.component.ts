@@ -8,20 +8,24 @@ import { EmployeeService } from 'src/app/services/employee.service';
 })
 export class EmployeeComponent implements OnInit {
 
-  constructor(private empService: EmployeeService) { }
-  
+  constructor(
+    private empService: EmployeeService,
+  ) { }
+
   employees: any = [];
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.getData();
     console.log("parent", this.employees)
   }
 
   getData() {
     this.employees = this.empService.getEmployeeDataFromLocalStorage();
+    return this.employees
   }
 
   deleteData(empId: any): void {
     this.empService.deleteEmployee(empId)
   }
 }
+ 

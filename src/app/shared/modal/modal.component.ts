@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
@@ -11,41 +11,60 @@ export class ModalComponent implements OnInit {
   @Input() employees: any;
   @Output() getData = new EventEmitter;
 
+  // getEmployees: any = [];
 
-  employee = {
+
+  employee: any = {
     empId: null,
     name: '',
     email: '',
-    salary: null
+    role: null
   }
 
-  constructor(private empService: EmployeeService) {
+  constructor(
+    private empService: EmployeeService,
+  ) {
   }
 
   ngOnInit(): void {
-    this.employees = this.getData.emit();
+
   }
 
   employeeForm = new FormGroup({
-    name: new FormControl(''),
-    email: new FormControl(''),
-    salary: new FormControl(null)
+    name: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+    ]),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.email
+    ]),
+    role: new FormControl(null)
   })
 
   saveEmployeeDataIntoLocalStorage() {
-    const { name, email, salary }: any = this.employeeForm.value;
+    const { name, email, role }: any = this.employeeForm.value;
+    console.log("em before---", this.employees)
     this.employee = {
-      empId: this.employees.length + 1,
+      empId: this.employees?.length + 1,
       name: name,
       email: email,
-      salary: salary
+      role: role
     }
-    this.employees.push(this.employee)
+    this.employees?.push(this.employee)
     this.empService.saveEmployeeDataIntoLocalStorage(this.employees)
-    this.getData.emit();
+
+    this.getData.emit()
     this.employeeForm.reset();
   }
 
+  get name() {
+    return this.employeeForm.get('name')
+  }
+  get email() {
+    return this.employeeForm.get('email')
+  }
 
 
 }
+
